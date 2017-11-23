@@ -31,7 +31,8 @@ CREATE OR REPLACE TABLE bv_sheets I18N us_pst (
         majordimension:text, 
         values:ds_sheets_values
     )
-    CACHE OFF
+    CACHE PARTIAL
+    BATCHSIZEINCACHE DEFAULT
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD bv_sheets(
         I18N us_pst
