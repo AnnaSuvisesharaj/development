@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW bv_false AS SELECT 0 AS id, bv_managername.first_name AS first_name, bv_managername.middle_name AS middle_name, bv_managername.last_name AS last_name FROM bv_managername CONTEXT ('I18N' = 'us_cst_cdt');
+
+ALTER VIEW bv_false
+ LAYOUT (bv_managername = [20, 20, 200, 86]);
+

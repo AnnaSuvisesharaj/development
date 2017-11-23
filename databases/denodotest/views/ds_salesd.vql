@@ -1,0 +1,30 @@
+﻿CREATE OR REPLACE WRAPPER DF ds_salesd_7463
+    DATASOURCENAME=ds_salesd
+    OUTPUTSCHEMA (
+        region_0 = '"Region"' (OPT),
+        product_0 = '"Product"' (OPT),
+        date_0 = '"Date"' (OPT),
+        sales_0 = '"Sales"' (OPT)
+    );
+
+CREATE OR REPLACE TABLE ds_salesd I18N us_pst (
+        region_0:text, 
+        product_0:text, 
+        date_0:text, 
+        sales_0:text
+    )
+    CACHE FULL
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_salesd(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD region_0 (=,in) OPT ANY
+             ADD product_0 (=,in) OPT ANY
+             ADD date_0 (=,in) OPT ANY
+             ADD sales_0 (=,in) OPT ANY
+        )
+        OUTPUTLIST (date_0, product_0, region_0, sales_0
+        )
+        WRAPPER (df ds_salesd_7463)
+    );
+

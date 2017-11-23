@@ -1,0 +1,3 @@
+﻿CREATE OR REPLACE DATASOURCE XML ds_xmldata
+    ROUTE LOCAL 'VariableConnection' 'file';
+

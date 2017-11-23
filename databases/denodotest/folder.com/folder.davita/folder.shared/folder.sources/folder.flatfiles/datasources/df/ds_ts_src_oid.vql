@@ -1,0 +1,8 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE DF ds_ts_src_oid
+    FOLDER = '/com/davita/shared/sources/flatfiles'
+    ROUTE LOCAL 'LocalConnection' '${databases.denodotest.folder.com.folder.davita.folder.shared.folder.sources.folder.flatfiles.datasources.df.ds_ts_src_oid.ROUTE.LOCAL.PATH}'
+    COLUMNDELIMITER = ','
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = TRUE;
+

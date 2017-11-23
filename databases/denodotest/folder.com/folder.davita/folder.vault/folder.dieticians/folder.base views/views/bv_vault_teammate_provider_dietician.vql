@@ -1,0 +1,159 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_vault_teammate_provider_dietician_1997
+    FOLDER = '/com/davita/vault/dieticians/base views'
+    DATASOURCENAME=ds_vault
+    SQLSENTENCE='SELECT au.username,
+       au.NAMEFIRST as first_name,
+       au.NAMELAST as last_name,
+       au.NAMEMIDDLE as middle_name,
+       au.DAVITAID as davita_id,
+       ''DaVita Kidney Care'' AS business_entity,
+       ''Dietitian'' AS role_name,
+      ''is_all_clinics_in_state'' as role_flags,
+       1 AS is_primary_role,
+       p1.ISSUEDDATE as role_date_start,
+       p1.EXPIRATIONDATE as role_date_stop,
+       au.JOBTITLE as job_title,
+       au.JOBCODE as job_code,
+       cl.NAME as clinic_name,
+       cl.CODESTATE as clinic_state,
+       c.idclinic as clinic_id,
+       cl.IDFACILITY as facility_id,
+       C.DATESTART as clinic_date_start,
+       C.DATESTOP as clinic_date_stop,
+       c.isprimaryclinic as is_primary_clinic,
+       p1.LICENSEDESCRIPTION as license_desccription,
+       p1.LICENSENUMBER as license_number,
+       p1.STATE as license_state,
+       p1.ISSUEDBY as license_issued_by,
+       p1.ISSUEDDATE as license_issue_date,
+       p1.EXPIRATIONDATE as license_expire_date
+  FROM vault.applicationuser au,
+       VAULTIN.PSFTTMLIC p1,
+       applicationuserclinic c,
+       REF.clinic cl
+ WHERE AU.DAVITAID = P1.TEAMMATEID
+       AND cl.idclinic = c.idclinic
+       AND cl.CODESTATE = p1.STATE
+       AND au.idapplicationuser = c.idapplicationuser
+       AND AU.jobcode IN (''O308'',
+                          ''O309'',
+                          ''O310'',
+                          ''O311'',
+                          ''O330'',
+                          ''O335'',
+                          ''O336'',
+                          ''V060'')
+       AND AU.IDUSERSTATUS = 1
+       AND SYSDATE BETWEEN c.datestart AND NVL (c.datestop, SYSDATE)
+       AND SYSDATE BETWEEN au.datestart AND NVL (au.datestop, SYSDATE)
+       AND p1.idrecord =
+              (SELECT MAX (idrecord)
+                 FROM VAULTIN.PSFTTMLIC p2
+                WHERE     AU.DAVITAID = P2.TEAMMATEID
+                      AND P2.LICENSEDESCRIPTION = ''Dieticians''
+                      AND P2.ISSUEDDATE <= TRUNC (SYSDATE)
+                      AND (   P2.EXPIRATIONDATE IS NULL
+                           OR P2.EXPIRATIONDATE > TRUNC (SYSDATE))
+                      AND state IN (SELECT codestate
+                                      FROM REF.STATES s
+                                     WHERE codestate <> ''XX''))
+       AND cl.idfacility IN
+              (SELECT idcorpclinic
+                 FROM CWOW.CWOWCLINIC
+                WHERE      SYSDATE BETWEEN DATESTART
+                                      AND NVL (DATESTOP, SYSDATE))'   
+    OUTPUTSCHEMA (
+        username = 'USERNAME' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='100')  NOT SORTABLE NOT UPDATEABLE,
+        first_name = 'FIRST_NAME' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='100')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        last_name = 'LAST_NAME' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='100')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        middle_name = 'MIDDLE_NAME' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='100')  NOT SORTABLE NOT UPDATEABLE,
+        davita_id = 'DAVITA_ID' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='20')  NOT SORTABLE NOT UPDATEABLE,
+        business_entity = 'BUSINESS_ENTITY' :'java.lang.String' (sourcetypename='CHAR', sourcetypeid='1', sourcetypedecimals='0', sourcetypesize='18')  NOT SORTABLE NOT UPDATEABLE,
+        role_name = 'ROLE_NAME' :'java.lang.String' (sourcetypename='CHAR', sourcetypeid='1', sourcetypedecimals='0', sourcetypesize='9')  NOT SORTABLE NOT UPDATEABLE,
+        role_flags = 'ROLE_FLAGS' :'java.lang.String' (sourcetypename='CHAR', sourcetypeid='1', sourcetypedecimals='0', sourcetypesize='23')  NOT SORTABLE NOT UPDATEABLE,
+        is_primary_role = 'IS_PRIMARY_ROLE' :'java.lang.Integer' (sourcetypename='NUMBER', sourcetypeid='2')  NOT SORTABLE NOT UPDATEABLE,
+        role_date_start = 'ROLE_DATE_START' :'java.sql.Date' (sourcetypename='DATE', sourcetypeid='93', sourcetypedecimals='0', sourcetypesize='0')  NOT SORTABLE NOT UPDATEABLE,
+        role_date_stop = 'ROLE_DATE_STOP' :'java.sql.Date' (sourcetypename='DATE', sourcetypeid='93', sourcetypedecimals='0', sourcetypesize='0')  NOT SORTABLE NOT UPDATEABLE,
+        job_title = 'JOB_TITLE' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='100')  NOT SORTABLE NOT UPDATEABLE,
+        job_code = 'JOB_CODE' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='10')  NOT SORTABLE NOT UPDATEABLE,
+        clinic_name = 'CLINIC_NAME' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='900')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        clinic_state = 'CLINIC_STATE' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='2')  NOT SORTABLE NOT UPDATEABLE,
+        clinic_id = 'CLINIC_ID' :'java.lang.Integer' (sourcetypename='NUMBER', sourcetypeid='2')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        facility_id = 'FACILITY_ID' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='10')  NOT SORTABLE NOT UPDATEABLE,
+        clinic_date_start = 'CLINIC_DATE_START' :'java.sql.Date' (sourcetypename='DATE', sourcetypeid='93', sourcetypedecimals='0', sourcetypesize='0')  NOT SORTABLE NOT UPDATEABLE,
+        clinic_date_stop = 'CLINIC_DATE_STOP' :'java.sql.Date' (sourcetypename='DATE', sourcetypeid='93', sourcetypedecimals='0', sourcetypesize='0')  NOT SORTABLE NOT UPDATEABLE,
+        is_primary_clinic = 'IS_PRIMARY_CLINIC' :'java.lang.Integer' (sourcetypename='NUMBER', sourcetypeid='2', sourcetypedecimals='0', sourcetypesize='1')  NOT SORTABLE NOT UPDATEABLE,
+        license_desccription = 'LICENSE_DESCCRIPTION' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='300')  NOT SORTABLE NOT UPDATEABLE,
+        license_number = 'LICENSE_NUMBER' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='30')  NOT SORTABLE NOT UPDATEABLE,
+        license_state = 'LICENSE_STATE' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='6')  NOT SORTABLE NOT UPDATEABLE,
+        license_issued_by = 'LICENSE_ISSUED_BY' :'java.lang.String' (sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='200')  NOT SORTABLE NOT UPDATEABLE,
+        license_issue_date = 'LICENSE_ISSUE_DATE' :'java.sql.Date' (sourcetypename='DATE', sourcetypeid='93', sourcetypedecimals='0', sourcetypesize='0')  NOT SORTABLE NOT UPDATEABLE,
+        license_expire_date = 'LICENSE_EXPIRE_DATE' :'java.sql.Date' (sourcetypename='DATE', sourcetypeid='93', sourcetypedecimals='0', sourcetypesize='0')  NOT SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_vault_teammate_provider_dietician I18N us_est (
+        username:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), 
+        first_name:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), 
+        last_name:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), 
+        middle_name:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), 
+        davita_id:text (sourcetypedecimals = '0', sourcetypesize = '20', sourcetypeid = '12'), 
+        business_entity:text (sourcetypedecimals = '0', sourcetypesize = '18', sourcetypeid = '1'), 
+        role_name:text (sourcetypedecimals = '0', sourcetypesize = '9', sourcetypeid = '1'), 
+        role_flags:text (sourcetypedecimals = '0', sourcetypesize = '23', sourcetypeid = '1'), 
+        is_primary_role:int (sourcetypeid = '3'), 
+        role_date_start:date (sourcetypedecimals = '0', sourcetypesize = '0', sourcetypeid = '91'), 
+        role_date_stop:date (sourcetypedecimals = '0', sourcetypesize = '0', sourcetypeid = '91'), 
+        job_title:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), 
+        job_code:text (sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '12'), 
+        clinic_name:text (sourcetypedecimals = '0', sourcetypesize = '900', sourcetypeid = '12'), 
+        clinic_state:text (sourcetypedecimals = '0', sourcetypesize = '2', sourcetypeid = '12'), 
+        clinic_id:int (sourcetypeid = '3'), 
+        facility_id:text (sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '12'), 
+        clinic_date_start:date (sourcetypedecimals = '0', sourcetypesize = '0', sourcetypeid = '91'), 
+        clinic_date_stop:date (sourcetypedecimals = '0', sourcetypesize = '0', sourcetypeid = '91'), 
+        is_primary_clinic:int (sourcetypedecimals = '0', sourcetypesize = '1', sourcetypeid = '3'), 
+        license_desccription:text (sourcetypedecimals = '0', sourcetypesize = '300', sourcetypeid = '12'), 
+        license_number:text (sourcetypedecimals = '0', sourcetypesize = '30', sourcetypeid = '12'), 
+        license_state:text (sourcetypedecimals = '0', sourcetypesize = '6', sourcetypeid = '12'), 
+        license_issued_by:text (sourcetypedecimals = '0', sourcetypesize = '200', sourcetypeid = '12'), 
+        license_issue_date:date (sourcetypedecimals = '0', sourcetypesize = '0', sourcetypeid = '91'), 
+        license_expire_date:date (sourcetypedecimals = '0', sourcetypesize = '0', sourcetypeid = '91')
+    )
+    FOLDER = '/com/davita/vault/dieticians/base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_vault_teammate_provider_dietician(
+        I18N us_est
+        CONSTRAINTS (
+             ADD username NOS ZERO ()
+             ADD first_name NOS ZERO ()
+             ADD last_name NOS ZERO ()
+             ADD middle_name NOS ZERO ()
+             ADD davita_id NOS ZERO ()
+             ADD business_entity NOS ZERO ()
+             ADD role_name NOS ZERO ()
+             ADD role_flags NOS ZERO ()
+             ADD is_primary_role NOS ZERO ()
+             ADD role_date_start NOS ZERO ()
+             ADD role_date_stop NOS ZERO ()
+             ADD job_title NOS ZERO ()
+             ADD job_code NOS ZERO ()
+             ADD clinic_name NOS ZERO ()
+             ADD clinic_state NOS ZERO ()
+             ADD clinic_id NOS ZERO ()
+             ADD facility_id NOS ZERO ()
+             ADD clinic_date_start NOS ZERO ()
+             ADD clinic_date_stop NOS ZERO ()
+             ADD is_primary_clinic NOS ZERO ()
+             ADD license_desccription NOS ZERO ()
+             ADD license_number NOS ZERO ()
+             ADD license_state NOS ZERO ()
+             ADD license_issued_by NOS ZERO ()
+             ADD license_issue_date NOS ZERO ()
+             ADD license_expire_date NOS ZERO ()
+        )
+        OUTPUTLIST (business_entity, clinic_date_start, clinic_date_stop, clinic_id, clinic_name, clinic_state, davita_id, facility_id, first_name, is_primary_clinic, is_primary_role, job_code, job_title, last_name, license_desccription, license_expire_date, license_issue_date, license_issued_by, license_number, license_state, middle_name, role_date_start, role_date_stop, role_flags, role_name, username
+        )
+        WRAPPER (jdbc bv_vault_teammate_provider_dietician_1997)
+    );
+

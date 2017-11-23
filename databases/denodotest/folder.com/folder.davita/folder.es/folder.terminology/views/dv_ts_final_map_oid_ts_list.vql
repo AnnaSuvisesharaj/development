@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_ts_final_map_oid_ts_list FOLDER = '/com/davita/es/terminology' AS SELECT dv_ts_final_src_oid.final_oid AS final_oid, dv_ts_final_src_oid.sno AS sno, dv_ts_final_src_oid.oid_typ AS oid_typ, dv_ts_final_src_oid.oid_val AS oid_val, bv_terminology_service_getlist.oid AS oid, bv_terminology_service_getlist.messagetype AS messagetype, bv_terminology_service_getlist.hits AS hits FROM dv_ts_final_src_oid AS dv_ts_final_src_oid INNER JOIN bv_terminology_service_getlist AS bv_terminology_service_getlist ON (dv_ts_final_src_oid.final_oid = bv_terminology_service_getlist.oid AND dv_ts_final_src_oid.activeby = bv_terminology_service_getlist.activeby) ;
+
+ALTER VIEW dv_ts_final_map_oid_ts_list
+ LAYOUT (dv_ts_final_src_oid = [40, 50, 290, 126], bv_terminology_service_getlist = [462, 73, 200, 105]);
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_true AS SELECT 1 AS id, bv_managername.last_name AS last_name, bv_managername.middle_name AS middle_name, bv_managername.first_name AS first_name FROM bv_managername CONTEXT ('I18N' = 'us_cst_cdt');
+
+ALTER VIEW dv_true
+ LAYOUT (bv_managername = [20, 20, 200, 86]);
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW bv_managername AS SELECT manager_first_name AS first_name, manager_last_name AS middle_name, manager_email AS last_name FROM admin.bv_manager GROUP BY manager_first_name, manager_last_name, manager_email CONTEXT ('I18N' = 'us_cst_cdt');
+
+ALTER VIEW bv_managername
+ LAYOUT (bv_manager = [20, 20, 252, 246]);
+

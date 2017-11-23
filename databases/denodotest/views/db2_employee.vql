@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC db2_employee
+    DATASOURCENAME=ds_db2
+    SCHEMANAME = '${databases.denodotest.views.jdbc.db2_employee.SCHEMANAME}'
+    RELATIONNAME='NEWTABLE' 
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.lang.Integer' (OPT) (sourcetyperadix='10', sourcetypename='INTEGER', sourcetypeid='4', sourcetypedecimals='0', sourcetypesize='10')  SORTABLE,
+        joindate = 'JOINDATE' :'java.sql.Date' (OPT) (sourcetypename='DATE', sourcetypeid='91', sourcetypesize='10')  SORTABLE,
+        jointime = 'JOINTIME' :'java.sql.Time' (OPT) (sourcetypename='TIME', sourcetypeid='92', sourcetypedecimals='0', sourcetypesize='8')  SORTABLE,
+        jointimestamp = 'JOINTIMESTAMP' :'java.sql.Timestamp' (OPT) (sourcetypename='TIMESTAMP', sourcetypeid='93', sourcetypedecimals='6', sourcetypesize='26')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE db2_employee I18N us_cst (
+        id:int (sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '4'), 
+        joindate:date (sourcetypesize = '10', sourcetypeid = '91'), 
+        jointime:date (sourcetypedecimals = '0', sourcetypesize = '8', sourcetypeid = '92'), 
+        jointimestamp:date (sourcetypedecimals = '6', sourcetypesize = '26', sourcetypeid = '93')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD db2_employee(
+        I18N us_cst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD joindate (any) OPT ANY
+             ADD jointime (any) OPT ANY
+             ADD jointimestamp (any) OPT ANY
+        )
+        OUTPUTLIST (id, joindate, jointime, jointimestamp
+        )
+        WRAPPER (jdbc db2_employee)
+    );
+

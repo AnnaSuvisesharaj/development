@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE VIEW peter_test_cache_cszislib_artstype FOLDER = '/20 - data laag/conversie' AS SELECT cszislib_artstype.code AS code, cszislib_artstype.omschr AS omschr, cszislib_artstype.vervallen AS vervallen FROM cszislib_artstype CONTEXT ('I18N' = 'us_cst');
+
+ALTER VIEW peter_test_cache_cszislib_artstype
+ LAYOUT (cszislib_artstype = [20, 20, 200, 86]);
+
+ALTER VIEW peter_test_cache_cszislib_artstype
+ CACHE FULL
+     BATCHSIZEINCACHE DEFAULT TIMETOLIVEINCACHE NOEXPIRE;
+

@@ -1,0 +1,28 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_vault
+    FOLDER = '/com/davita/shared/sources/database'
+    DRIVERCLASSNAME = 'oracle.jdbc.OracleDriver'
+    DATABASEURI = '${databases.denodotest.folder.com.folder.davita.folder.shared.folder.sources.folder.database.datasources.jdbc.ds_vault.DATABASEURI}'
+    USERNAME = '${databases.denodotest.folder.com.folder.davita.folder.shared.folder.sources.folder.database.datasources.jdbc.ds_vault.USERNAME}'
+    USERPASSWORD = '${databases.denodotest.folder.com.folder.davita.folder.shared.folder.sources.folder.database.datasources.jdbc.ds_vault.USERPASSWORD}' ${databases.denodotest.folder.com.folder.davita.folder.shared.folder.sources.folder.database.datasources.jdbc.ds_vault.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'oracle-12c'
+    DATABASENAME = 'oracle'
+    DATABASEVERSION = '12c'
+    FETCHSIZE = 1000
+    BATCHINSERTSIZE = 200
+    VALIDATIONQUERY = 'SELECT COUNT(*) FROM SYS.DUAL'
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 4
+    INITIALCAPACITYPS = 8;
+

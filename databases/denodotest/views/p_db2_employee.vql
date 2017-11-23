@@ -1,0 +1,8 @@
+﻿CREATE OR REPLACE VIEW p_db2_employee (
+    dateeeeee (sourcetypeid = '91')
+)
+ AS SELECT db2_employee.id AS id, db2_employee.joindate AS joindate, db2_employee.jointime AS jointime, db2_employee.jointimestamp AS jointimestamp, to_date('yyyy-MM-dd', '2017-10-09') AS dateeeeee FROM db2_employee WHERE joindate <= to_date(current_date(), false) CONTEXT ('I18N' = 'us_cst');
+
+ALTER VIEW p_db2_employee
+ LAYOUT (db2_employee = [20, 20, 200, 105]);
+

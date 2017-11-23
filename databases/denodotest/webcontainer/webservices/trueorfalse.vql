@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE trueorfalse;
+
+DEPLOY WEBSERVICE trueorfalse LOGIN = '${databases.denodotest.webcontainer.webservices.trueorfalse.LOGIN}' PASSWORD = '${databases.denodotest.webcontainer.webservices.trueorfalse.PASSWORD}' ${databases.denodotest.webcontainer.webservices.trueorfalse.PASSWORD.ENCRYPTED};
+

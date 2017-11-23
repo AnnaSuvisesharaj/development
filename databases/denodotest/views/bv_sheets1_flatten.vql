@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW bv_sheets1_flatten AS SELECT spreadsheet, range, majordimension, values FROM FLATTEN bv_sheets1 AS v ( v.values);
+
+ALTER VIEW bv_sheets1_flatten
+ LAYOUT (bv_sheets1 = [20, 20, 346, 146]);
+

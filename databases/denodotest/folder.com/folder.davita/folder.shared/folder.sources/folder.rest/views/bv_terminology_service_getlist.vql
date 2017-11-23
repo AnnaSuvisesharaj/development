@@ -1,0 +1,81 @@
+﻿CREATE OR REPLACE WRAPPER JSON bv_terminology_service_getlist
+    FOLDER = '/com/davita/shared/sources/rest'
+    DATASOURCENAME=ds_terminology_service_test
+    TUPLEROOT '/JSONFile'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        activeby = 'ACTIVEBY' : 'java.lang.String' (OBL) (DEFAULTVALUE='"ActiveBy":"2017-7-12"') EXTERN,
+        oid = 'OID' : 'java.lang.String' (OBL) (DEFAULTVALUE='"SourceOID" : "10.9.8.7.6.5.4.3.2.1"') EXTERN,
+        messagetype = 'messageType' : 'java.lang.String',
+        hits = 'hits' : REGISTER OF (
+            hits = 'hits' : ARRAY OF (
+                hits = 'hits' : REGISTER OF (
+                    code = 'code' : REGISTER OF (
+                        dateend = 'DateEnd' : 'java.lang.String',
+                        termshort = 'TermShort' : 'java.lang.String',
+                        datestart = 'DateStart' : 'java.lang.String',
+                        oid = 'OID' : 'java.lang.String',
+                        termlong = 'TermLong' : 'java.lang.String',
+                        conceptid = 'ConceptID' : 'java.lang.String'
+                    ),
+                    mapped = 'mapped' : REGISTER OF (
+                        dateend = 'DateEnd' : 'java.lang.String',
+                        termshort = 'TermShort' : 'java.lang.String',
+                        datestart = 'DateStart' : 'java.lang.String',
+                        oid = 'OID' : 'java.lang.String',
+                        termlong = 'TermLong' : 'java.lang.String',
+                        conceptid = 'ConceptID' : 'java.lang.String'
+                    )
+                )
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE bv_terminology_service_getlist_hits_hits_hits_code AS REGISTER OF (dateend:text, termshort:text, datestart:text, oid:text, termlong:text, conceptid:text);
+
+CREATE OR REPLACE TYPE bv_terminology_service_getlist_hits_hits_hits_mapped AS REGISTER OF (dateend:text, termshort:text, datestart:text, oid:text, termlong:text, conceptid:text);
+
+CREATE OR REPLACE TYPE bv_terminology_service_getlist_hits_hits_hits AS REGISTER OF (code:bv_terminology_service_getlist_hits_hits_hits_code, mapped:bv_terminology_service_getlist_hits_hits_hits_mapped);
+
+CREATE OR REPLACE TYPE bv_terminology_service_getlist_hits_hits AS ARRAY OF bv_terminology_service_getlist_hits_hits_hits;
+
+CREATE OR REPLACE TYPE bv_terminology_service_getlist_hits AS REGISTER OF (hits:bv_terminology_service_getlist_hits_hits);
+
+CREATE OR REPLACE TABLE bv_terminology_service_getlist I18N us_est (
+        activeby:text (defaultvalue = '"ActiveBy":"2017-7-12"'), 
+        oid:text (defaultvalue = '"SourceOID" : "10.9.8.7.6.5.4.3.2.1"'), 
+        messagetype:text, 
+        hits:bv_terminology_service_getlist_hits
+    )
+    FOLDER = '/com/davita/shared/sources/rest'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_terminology_service_getlist(
+        I18N us_est
+        CONSTRAINTS (
+             ADD activeby (=) OBL ONE
+             ADD oid (=) OBL ONE
+             ADD messagetype NOS ZERO ()
+             ADD hits NOS ZERO ()
+             ADD hits.hits NOS ZERO ()
+             ADD hits.hits NOS ZERO ()
+             ADD hits.hits.code NOS ZERO ()
+             ADD hits.hits.code.dateend NOS ZERO ()
+             ADD hits.hits.code.termshort NOS ZERO ()
+             ADD hits.hits.code.datestart NOS ZERO ()
+             ADD hits.hits.code.oid NOS ZERO ()
+             ADD hits.hits.code.termlong NOS ZERO ()
+             ADD hits.hits.code.conceptid NOS ZERO ()
+             ADD hits.hits.mapped NOS ZERO ()
+             ADD hits.hits.mapped.dateend NOS ZERO ()
+             ADD hits.hits.mapped.termshort NOS ZERO ()
+             ADD hits.hits.mapped.datestart NOS ZERO ()
+             ADD hits.hits.mapped.oid NOS ZERO ()
+             ADD hits.hits.mapped.termlong NOS ZERO ()
+             ADD hits.hits.mapped.conceptid NOS ZERO ()
+        )
+        OUTPUTLIST (hits, messagetype
+        )
+        WRAPPER (json bv_terminology_service_getlist)
+    );
+

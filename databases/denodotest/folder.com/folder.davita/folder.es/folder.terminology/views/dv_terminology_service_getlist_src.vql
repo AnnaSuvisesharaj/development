@@ -1,0 +1,8 @@
+﻿CREATE OR REPLACE VIEW dv_terminology_service_getlist_src FOLDER = '/com/davita/es/terminology' AS SELECT DISTINCT oid AS oid, messagetype AS messagetype, (code).dateend AS code_dateend, (code).termshort AS code_termshort, (code).datestart AS code_datestart, (code).oid AS code_hits_hits_oid, (code).termlong AS code_termlong, (code).conceptid AS code_conceptid, (mapped).dateend AS mapped_dateend, (mapped).termshort AS mapped_termshort, (mapped).datestart AS mapped_datestart, (mapped).oid AS mapped_hits_hits_oid, (mapped).termlong AS mapped_termlong, (mapped).conceptid AS mapped_conceptid FROM FLATTEN dv_ts_final_map_oid_ts_list AS v ( v.hits.hits) WHERE v.oid like '"SourceOID":%';
+
+ALTER VIEW dv_terminology_service_getlist_src
+ LAYOUT (dv_ts_final_map_oid_ts_list = [20, 20, 510, 466]);
+
+ALTER VIEW dv_terminology_service_getlist_src
+ CACHE FULL TIMETOLIVEINCACHE NOEXPIRE;
+

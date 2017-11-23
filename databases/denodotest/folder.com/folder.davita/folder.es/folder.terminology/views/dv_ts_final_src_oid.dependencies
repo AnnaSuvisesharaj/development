@@ -1,0 +1,9 @@
+﻿/databases/denodotest/folder.com/com.vql
+/databases/denodotest/folder.com/folder.davita/davita.vql
+/databases/denodotest/folder.com/folder.davita/folder.es/es.vql
+/databases/denodotest/folder.com/folder.davita/folder.es/folder.terminology/terminology.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/shared.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/sources.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.flatfiles/flatfiles.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.flatfiles/datasources/df/ds_ts_src_oid.vql
+/databases/denodotest/folder.com/folder.davita/folder.es/folder.terminology/views/bv_ts_src_oid.vql

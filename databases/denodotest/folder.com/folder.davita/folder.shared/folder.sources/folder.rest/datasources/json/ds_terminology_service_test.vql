@@ -1,0 +1,16 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_terminology_service_test
+    FOLDER = '/com/davita/shared/sources/rest'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' POST '${databases.denodotest.folder.com.folder.davita.folder.shared.folder.sources.folder.rest.datasources.json.ds_terminology_service_test.ROUTE.HTTP.URL}'
+    POSTBODY '\{{
+"GetAllMappedCodes" : true,
+@activeby,
+@OID
+\}}'
+    MIME 'application/json'
+    HEADERS (
+        'Content-Type'='application/json'
+    )
+    AUTHENTICATION OFF
+    PROXY OFF;
+

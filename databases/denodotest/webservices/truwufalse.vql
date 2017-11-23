@@ -1,0 +1,21 @@
+﻿CREATE OR REPLACE REST WEBSERVICE truwufalse
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    DEFAULTREPRESENTATION = HTML
+    SUPPORTEDREPRESENTATIONS (HTML, XML, JSON)
+    RESOURCES (
+        VIEW truwufalse FIELDS (
+            id : 'int', 
+            first_name : 'text', 
+            middle_name : 'text', 
+            last_name : 'text'
+        )
+    )
+    OPTIONS ( NULLVALUESASEMPTYXMLELEMENTS = false ) ;
+

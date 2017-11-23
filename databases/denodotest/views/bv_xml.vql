@@ -1,0 +1,17 @@
+﻿CREATE OR REPLACE TABLE bv_xml I18N us_cst (
+        id:int, 
+        properties:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_xml(
+        I18N us_cst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD properties (any) OPT ANY
+        )
+        OUTPUTLIST (id, properties
+        )
+        WRAPPER (custom ds_xml)
+    );
+

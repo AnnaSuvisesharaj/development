@@ -1,0 +1,123 @@
+﻿CREATE OR REPLACE WRAPPER JSON bv_sheetsdetails
+    DATASOURCENAME=ds_sheets
+    TUPLEROOT '/JSONFile'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        spreadsheetid = 'spreadsheetId' : 'java.lang.String' (OBL) (DEFAULTVALUE='1f54vbc3iQSZGEBzEMYg9P2nMCeUKt4jGLejaOmUAEH0'),
+        properties = 'properties' : REGISTER OF (
+            title = 'title' : 'java.lang.String',
+            locale = 'locale' : 'java.lang.String',
+            autorecalc = 'autoRecalc' : 'java.lang.String',
+            timezone = 'timeZone' : 'java.lang.String',
+            defaultformat = 'defaultFormat' : REGISTER OF (
+                backgroundcolor = 'backgroundColor' : REGISTER OF (
+                    red = 'red' : 'java.lang.Integer',
+                    green = 'green' : 'java.lang.Integer',
+                    blue = 'blue' : 'java.lang.Integer'
+                ),
+                padding = 'padding' : REGISTER OF (
+                    top = 'top' : 'java.lang.Integer',
+                    right_0 = 'right' : 'java.lang.Integer',
+                    bottom = 'bottom' : 'java.lang.Integer',
+                    left_0 = 'left' : 'java.lang.Integer'
+                ),
+                verticalalignment = 'verticalAlignment' : 'java.lang.String',
+                wrapstrategy = 'wrapStrategy' : 'java.lang.String',
+                textformat = 'textFormat' : REGISTER OF (
+                    fontfamily = 'fontFamily' : 'java.lang.String',
+                    fontsize = 'fontSize' : 'java.lang.Integer',
+                    bold = 'bold' : 'java.lang.String',
+                    italic = 'italic' : 'java.lang.String',
+                    strikethrough = 'strikethrough' : 'java.lang.String',
+                    underline = 'underline' : 'java.lang.String'
+                )
+            )
+        ),
+        sheets = 'sheets' : ARRAY OF (
+            sheets = 'sheets' : REGISTER OF (
+                properties = 'properties' : REGISTER OF (
+                    sheetid = 'sheetId' : 'java.lang.Integer',
+                    title = 'title' : 'java.lang.String',
+                    index = 'index' : 'java.lang.Integer',
+                    sheettype = 'sheetType' : 'java.lang.String',
+                    gridproperties = 'gridProperties' : REGISTER OF (
+                        rowcount = 'rowCount' : 'java.lang.Integer',
+                        columncount = 'columnCount' : 'java.lang.Integer'
+                    )
+                )
+            )
+        ),
+        spreadsheeturl = 'spreadsheetUrl' : 'java.lang.String'
+    )
+    );
+
+CREATE OR REPLACE TYPE ds_sheets_properties_defaultformat_backgroundcolor AS REGISTER OF (red:int, green:int, blue:int);
+
+CREATE OR REPLACE TYPE ds_sheets_properties_defaultformat_padding AS REGISTER OF (top:int, right_0:int, bottom:int, left_0:int);
+
+CREATE OR REPLACE TYPE ds_sheets_properties_defaultformat_textformat AS REGISTER OF (fontfamily:text, fontsize:int, bold:text, italic:text, strikethrough:text, underline:text);
+
+CREATE OR REPLACE TYPE ds_sheets_properties_defaultformat AS REGISTER OF (backgroundcolor:ds_sheets_properties_defaultformat_backgroundcolor, padding:ds_sheets_properties_defaultformat_padding, verticalalignment:text, wrapstrategy:text, textformat:ds_sheets_properties_defaultformat_textformat);
+
+CREATE OR REPLACE TYPE ds_sheets_properties AS REGISTER OF (title:text, locale:text, autorecalc:text, timezone:text, defaultformat:ds_sheets_properties_defaultformat);
+
+CREATE OR REPLACE TYPE ds_sheets_sheets_sheets_properties_gridproperties AS REGISTER OF (rowcount:int, columncount:int);
+
+CREATE OR REPLACE TYPE ds_sheets_sheets_sheets_properties AS REGISTER OF (sheetid:int, title:text, index:int, sheettype:text, gridproperties:ds_sheets_sheets_sheets_properties_gridproperties);
+
+CREATE OR REPLACE TYPE ds_sheets_sheets_sheets AS REGISTER OF (properties:ds_sheets_sheets_sheets_properties);
+
+CREATE OR REPLACE TYPE ds_sheets_sheets AS ARRAY OF ds_sheets_sheets_sheets;
+
+CREATE OR REPLACE TABLE bv_sheetsdetails I18N us_pst (
+        spreadsheetid:text (defaultvalue = '1f54vbc3iQSZGEBzEMYg9P2nMCeUKt4jGLejaOmUAEH0'), 
+        properties:ds_sheets_properties, 
+        sheets:ds_sheets_sheets, 
+        spreadsheeturl:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_sheetsdetails(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD spreadsheetid (=) OBL ONE
+             ADD properties NOS ZERO ()
+             ADD properties.title NOS ZERO ()
+             ADD properties.locale NOS ZERO ()
+             ADD properties.autorecalc NOS ZERO ()
+             ADD properties.timezone NOS ZERO ()
+             ADD properties.defaultformat NOS ZERO ()
+             ADD properties.defaultformat.backgroundcolor NOS ZERO ()
+             ADD properties.defaultformat.backgroundcolor.red NOS ZERO ()
+             ADD properties.defaultformat.backgroundcolor.green NOS ZERO ()
+             ADD properties.defaultformat.backgroundcolor.blue NOS ZERO ()
+             ADD properties.defaultformat.padding NOS ZERO ()
+             ADD properties.defaultformat.padding.top NOS ZERO ()
+             ADD properties.defaultformat.padding.right_0 NOS ZERO ()
+             ADD properties.defaultformat.padding.bottom NOS ZERO ()
+             ADD properties.defaultformat.padding.left_0 NOS ZERO ()
+             ADD properties.defaultformat.verticalalignment NOS ZERO ()
+             ADD properties.defaultformat.wrapstrategy NOS ZERO ()
+             ADD properties.defaultformat.textformat NOS ZERO ()
+             ADD properties.defaultformat.textformat.fontfamily NOS ZERO ()
+             ADD properties.defaultformat.textformat.fontsize NOS ZERO ()
+             ADD properties.defaultformat.textformat.bold NOS ZERO ()
+             ADD properties.defaultformat.textformat.italic NOS ZERO ()
+             ADD properties.defaultformat.textformat.strikethrough NOS ZERO ()
+             ADD properties.defaultformat.textformat.underline NOS ZERO ()
+             ADD sheets NOS ZERO ()
+             ADD sheets NOS ZERO ()
+             ADD sheets.properties NOS ZERO ()
+             ADD sheets.properties.sheetid NOS ZERO ()
+             ADD sheets.properties.title NOS ZERO ()
+             ADD sheets.properties.index NOS ZERO ()
+             ADD sheets.properties.sheettype NOS ZERO ()
+             ADD sheets.properties.gridproperties NOS ZERO ()
+             ADD sheets.properties.gridproperties.rowcount NOS ZERO ()
+             ADD sheets.properties.gridproperties.columncount NOS ZERO ()
+             ADD spreadsheeturl NOS ZERO ()
+        )
+        OUTPUTLIST (properties, sheets, spreadsheetid, spreadsheeturl
+        )
+        WRAPPER (json bv_sheetsdetails)
+    );
+

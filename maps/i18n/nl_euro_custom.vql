@@ -1,0 +1,18 @@
+﻿CREATE OR REPLACE MAP i18n nl_euro_custom (
+    'country' = 'NL'
+    'currency' = 'EURO'
+    'currencydecimalposition' = '2'
+    'currencydecimalseparator' = ','
+    'currencygroupseparator' = '.'
+    'currencysymbol' = '€'
+    'datepattern' = 'dd-MM-yyyy HH:mm:ss'
+    'doubledecimalposition' = '2'
+    'doubledecimalseparator' = ','
+    'doublegroupseparator' = ''
+    'language' = 'nl'
+    'moneypattern' = '###.###.###,##'
+    'timepattern' = 'DAY'
+    'timesubtypepattern' = 'HH:mm:ss'
+    'timezone' = 'Europe/Amsterdam'
+);
+

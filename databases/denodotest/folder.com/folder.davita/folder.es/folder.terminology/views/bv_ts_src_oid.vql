@@ -1,0 +1,29 @@
+﻿CREATE OR REPLACE WRAPPER DF bv_ts_src_oid
+    FOLDER = '/com/davita/es/terminology'
+    DATASOURCENAME=ds_ts_src_oid
+    OUTPUTSCHEMA (
+        sno = 'sno' (OPT),
+        oid_typ = 'oid_typ' (OPT),
+        oid_val = 'oid_val' (OPT)
+    );
+
+CREATE OR REPLACE TABLE bv_ts_src_oid I18N us_est (
+        sno:text, 
+        oid_typ:text, 
+        oid_val:text
+    )
+    FOLDER = '/com/davita/es/terminology'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_ts_src_oid(
+        I18N us_est
+        CONSTRAINTS (
+             ADD sno (=,in) OPT ANY
+             ADD oid_typ (=,in) OPT ANY
+             ADD oid_val (=,in) OPT ANY
+        )
+        OUTPUTLIST (oid_typ, oid_val, sno
+        )
+        WRAPPER (df bv_ts_src_oid)
+    );
+

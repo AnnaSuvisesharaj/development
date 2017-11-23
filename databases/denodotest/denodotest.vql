@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE DATABASE denodotest '';
+
+ALTER DATABASE denodotest
+  CHARSET DEFAULT;
+

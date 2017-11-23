@@ -1,0 +1,19 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON google_sheets_mcd_q4
+    FOLDER = '/1 - data sources/google sheets'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.URL}'
+    AUTHENTICATION OAUTH20 ( 
+      ACCESSTOKEN = '${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.ACCESSTOKEN}' ${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.ACCESSTOKEN.ENCRYPTED}
+      REQUESTSIGNINGMETHOD = ${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.REQUESTSIGNINGMETHOD}
+      TOKENENDPOINTURL = '${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.TOKENENDPOINTURL}'
+      CLIENTIDENTIFIER = '${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.CLIENTIDENTIFIER}'
+      CLIENTSECRET = '${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.CLIENTSECRET}' ${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.CLIENTSECRET.ENCRYPTED}
+      REFRESHTOKEN = '${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.REFRESHTOKEN}' ${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.REFRESHTOKEN.ENCRYPTED}
+      ACCESSTOKENEXPIRESIN = ${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.ACCESSTOKENEXPIRESIN}
+      AUTHORIZATIONSERVERURL = '${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.AUTHORIZATIONSERVERURL}'
+      REDIRECTIONENDPOINTURL = '${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.REDIRECTIONENDPOINTURL}'
+      SCOPES = ${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.SCOPES}
+      SETSTATEPARAMETER = ${databases.denodotest.folder.1 - data sources.folder.google sheets.datasources.json.google_sheets_mcd_q4.ROUTE.HTTP.SETSTATEPARAMETER}
+    )
+    PROXY OFF;
+

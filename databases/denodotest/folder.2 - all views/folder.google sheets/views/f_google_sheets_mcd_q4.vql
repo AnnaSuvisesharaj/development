@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW f_google_sheets_mcd_q4 FOLDER = '/2 - all views/google sheets' AS SELECT range, majordimension, values FROM FLATTEN google_sheets_mcd_q4 AS v ( v.values);
+
+ALTER VIEW f_google_sheets_mcd_q4
+ LAYOUT (google_sheets_mcd_q4 = [20, 20, 422, 85]);
+

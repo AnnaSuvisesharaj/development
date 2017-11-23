@@ -1,0 +1,51 @@
+﻿CREATE OR REPLACE WRAPPER JSON google_sheets_mcd_q4
+    FOLDER = '/2 - all views/google sheets'
+    DATASOURCENAME=google_sheets_mcd_q4
+    TUPLEROOT '/JSONFile'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        range = 'range' : 'java.lang.String',
+        majordimension = 'majorDimension' : 'java.lang.String',
+        values = 'values' : ARRAY OF (
+            values = 'values' : REGISTER OF (
+                values = 'values' : ARRAY OF (
+                    values = 'values' : REGISTER OF (
+                        field_0 = 'field_0' : 'java.lang.String'
+                    )
+                )
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE google_sheets_mcd_q4_values_values_values_values AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE google_sheets_mcd_q4_values_values_values AS ARRAY OF google_sheets_mcd_q4_values_values_values_values;
+
+CREATE OR REPLACE TYPE google_sheets_mcd_q4_values_values AS REGISTER OF (values:google_sheets_mcd_q4_values_values_values);
+
+CREATE OR REPLACE TYPE google_sheets_mcd_q4_values AS ARRAY OF google_sheets_mcd_q4_values_values;
+
+CREATE OR REPLACE TABLE google_sheets_mcd_q4 I18N za (
+        range:text, 
+        majordimension:text, 
+        values:google_sheets_mcd_q4_values
+    )
+    FOLDER = '/2 - all views/google sheets'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD google_sheets_mcd_q4(
+        I18N za
+        CONSTRAINTS (
+             ADD range NOS ZERO ()
+             ADD majordimension NOS ZERO ()
+             ADD values NOS ZERO ()
+             ADD values NOS ZERO ()
+             ADD values.values NOS ZERO ()
+             ADD values.values NOS ZERO ()
+             ADD values.values.field_0 NOS ZERO ()
+        )
+        OUTPUTLIST (majordimension, range, values
+        )
+        WRAPPER (json google_sheets_mcd_q4)
+    );
+

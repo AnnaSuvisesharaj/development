@@ -1,0 +1,14 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_googlefield
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.URL}'
+    AUTHENTICATION OAUTH20 ( 
+      ACCESSTOKEN = '${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.ACCESSTOKEN}' ${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.ACCESSTOKEN.ENCRYPTED}
+      REQUESTSIGNINGMETHOD = ${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.REQUESTSIGNINGMETHOD}
+      TOKENENDPOINTURL = '${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.TOKENENDPOINTURL}'
+      CLIENTIDENTIFIER = '${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.CLIENTIDENTIFIER}'
+      CLIENTSECRET = '${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.CLIENTSECRET}' ${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.CLIENTSECRET.ENCRYPTED}
+      REFRESHTOKEN = '${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.REFRESHTOKEN}' ${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.REFRESHTOKEN.ENCRYPTED}
+      ACCESSTOKENEXPIRESIN = ${databases.denodotest.datasources.json.ds_googlefield.ROUTE.HTTP.ACCESSTOKENEXPIRESIN}
+    )
+    PROXY OFF;
+

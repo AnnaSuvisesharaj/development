@@ -1,0 +1,4 @@
+﻿/databases/denodotest/datasources/custom/ds_xml.vql
+/databases/denodotest/views/bv_xml.vql
+/databases/denodotest/datasources/xml/ds_xmldata.vql
+/databases/denodotest/views/ds_xmldata.vql

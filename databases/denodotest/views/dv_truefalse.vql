@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_truefalse AS SELECT id, last_name, middle_name, first_name, case WHEN (id = 1) THEN ((((last_name||',')||middle_name)||' ')||middle_name) ELSE ((((first_name||' ')||middle_name)||' ')||last_name) END AS result FROM (SELECT * FROM dv_true UNION SELECT id, first_name, last_name, middle_name FROM bv_false) CONTEXT ('I18N' = 'us_cst_cdt');
+
+ALTER VIEW dv_truefalse
+ LAYOUT (dv_true = [20, 20, 200, 106], bv_false = [364, 130, 200, 106]);
+

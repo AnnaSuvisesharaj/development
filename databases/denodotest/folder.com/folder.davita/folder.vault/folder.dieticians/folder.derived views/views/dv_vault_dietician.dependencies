@@ -1,0 +1,11 @@
+﻿/databases/denodotest/folder.com/com.vql
+/databases/denodotest/folder.com/folder.davita/davita.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/vault.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/folder.dieticians/dieticians.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/folder.dieticians/folder.derived views/derived views.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/folder.dieticians/folder.base views/base views.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/shared.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/sources.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.database/database.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.database/datasources/jdbc/ds_vault.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/folder.dieticians/folder.base views/views/bv_vault_teammate_provider_dietician.vql

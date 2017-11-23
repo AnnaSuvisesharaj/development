@@ -1,0 +1,53 @@
+﻿CREATE OR REPLACE WRAPPER XML ds_xmldata
+    DATASOURCENAME=ds_xmldata
+    TUPLEROOT 'properties'
+    OUTPUTSCHEMA (properties = 'properties' : REGISTER OF (
+        file = 'FILE' : 'java.lang.String' (OBL) (DEFAULTVALUE='<?xml version="1.0" encoding="UTF-8"?><properties><DELETED><![CDATA[0]]></DELETED><CaseComplete><![CDATA[N]]></CaseComplete><ProductSelection><![CDATA[LOAN]]></ProductSelection><Status><![CDATA[Initiated]]></Status><TBID><![CDATA[2222222222]]></TBID><journeyCounter><![CDATA[0]]></journeyCounter><offerId><![CDATA[8]]></offerId><ValidNotShown><![CDATA[ProvideEmailAddress,ProvideEmailAddress,ProvideMobileNumber,ProvideCountryNationality]]></ValidNotShown><PerformedStages/><PerformedActivities><![CDATA[NewRegOriginatingJourney,LoanCalculator,AboutYourLoan,VerifyAddress]]></PerformedActivities><ExecutableActivities><![CDATA[ProvideMovedInDate,ProvideCountry,VerifyBankDetails,FirstPaymentDate,SummaryPage,LoanPre_Agreement,UnderstandingYourLoan,LoanSECCI,FixSumLoanAgreement,LoanNextSteps,AlternateAction]]></ExecutableActivities><ExecutableStages/></properties>') EXTERN,
+        deleted = 'DELETED' : 'java.lang.Short',
+        casecomplete = 'CaseComplete' : 'java.lang.String',
+        productselection = 'ProductSelection' : 'java.lang.String',
+        status = 'Status' : 'java.lang.String',
+        tbid = 'TBID' : 'java.lang.Long',
+        journeycounter = 'journeyCounter' : 'java.lang.Short',
+        offerid = 'offerId' : 'java.lang.Short',
+        validnotshown = 'ValidNotShown' : 'java.lang.String',
+        performedactivities = 'PerformedActivities' : 'java.lang.String',
+        executableactivities = 'ExecutableActivities' : 'java.lang.String'
+    )
+    );
+
+CREATE OR REPLACE TABLE ds_xmldata I18N us_cst (
+        file:text (defaultvalue = '<?xml version="1.0" encoding="UTF-8"?><properties><DELETED><![CDATA[0]]></DELETED><CaseComplete><![CDATA[N]]></CaseComplete><ProductSelection><![CDATA[LOAN]]></ProductSelection><Status><![CDATA[Initiated]]></Status><TBID><![CDATA[2222222222]]></TBID><journeyCounter><![CDATA[0]]></journeyCounter><offerId><![CDATA[8]]></offerId><ValidNotShown><![CDATA[ProvideEmailAddress,ProvideEmailAddress,ProvideMobileNumber,ProvideCountryNationality]]></ValidNotShown><PerformedStages/><PerformedActivities><![CDATA[NewRegOriginatingJourney,LoanCalculator,AboutYourLoan,VerifyAddress]]></PerformedActivities><ExecutableActivities><![CDATA[ProvideMovedInDate,ProvideCountry,VerifyBankDetails,FirstPaymentDate,SummaryPage,LoanPre_Agreement,UnderstandingYourLoan,LoanSECCI,FixSumLoanAgreement,LoanNextSteps,AlternateAction]]></ExecutableActivities><ExecutableStages/></properties>'), 
+        deleted:int, 
+        casecomplete:text, 
+        productselection:text, 
+        status:text, 
+        tbid:long, 
+        journeycounter:int, 
+        offerid:int, 
+        validnotshown:text, 
+        performedactivities:text, 
+        executableactivities:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_xmldata(
+        I18N us_cst
+        CONSTRAINTS (
+             ADD file (=) OBL ONE
+             ADD deleted NOS ZERO ()
+             ADD casecomplete NOS ZERO ()
+             ADD productselection NOS ZERO ()
+             ADD status NOS ZERO ()
+             ADD tbid NOS ZERO ()
+             ADD journeycounter NOS ZERO ()
+             ADD offerid NOS ZERO ()
+             ADD validnotshown NOS ZERO ()
+             ADD performedactivities NOS ZERO ()
+             ADD executableactivities NOS ZERO ()
+        )
+        OUTPUTLIST (casecomplete, deleted, executableactivities, journeycounter, offerid, performedactivities, productselection, status, tbid, validnotshown
+        )
+        WRAPPER (xml ds_xmldata)
+    );
+

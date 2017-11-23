@@ -1,0 +1,6 @@
+﻿/databases/denodotest/folder.com/com.vql
+/databases/denodotest/folder.com/folder.davita/davita.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/shared.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/sources.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.rest/rest.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.rest/datasources/json/ds_terminology_service_test.vql

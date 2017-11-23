@@ -1,0 +1,19 @@
+﻿CREATE OR REPLACE TABLE ds_excel I18N us_cst (
+        column_0:int, 
+        column_1:text, 
+        path:text (defaultvalue = 'C:\Users\asuvisesharaj\Desktop\DV Developer basics\DEN60EDU0107LAB01\excel\excel1.xlsx')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_excel(
+        I18N us_cst
+        CONSTRAINTS (
+             ADD column_0 (any) OPT ANY
+             ADD column_1 (any) OPT ANY
+             ADD path (=) OBL ONE
+        )
+        OUTPUTLIST (column_0, column_1
+        )
+        WRAPPER (custom ds_excel)
+    );
+

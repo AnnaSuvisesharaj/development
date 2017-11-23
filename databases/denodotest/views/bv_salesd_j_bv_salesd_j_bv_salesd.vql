@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW bv_salesd_j_bv_salesd_j_bv_salesd AS SELECT bv_salesd2.region_0 AS region_0, bv_salesd2.product_0 AS product_0, bv_salesd2.date_0 AS date_0, bv_salesd2.sales_0 AS sales_0 FROM bv_salesd AS bv_salesd, bv_salesd AS bv_salesd1, bv_salesd AS bv_salesd2;
+
+ALTER VIEW bv_salesd_j_bv_salesd_j_bv_salesd
+ LAYOUT (bv_salesd = [84, 98, 200, 106], bv_salesd = [478, 114, 200, 106], bv_salesd = [915, 191, 200, 106]);
+

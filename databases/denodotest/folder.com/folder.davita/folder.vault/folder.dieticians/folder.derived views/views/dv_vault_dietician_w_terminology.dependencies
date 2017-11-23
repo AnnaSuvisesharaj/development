@@ -1,0 +1,23 @@
+﻿/databases/denodotest/folder.com/com.vql
+/databases/denodotest/folder.com/folder.davita/davita.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/vault.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/folder.dieticians/dieticians.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/folder.dieticians/folder.derived views/derived views.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/folder.dieticians/folder.base views/base views.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/shared.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/sources.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.database/database.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.database/datasources/jdbc/ds_vault.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/folder.dieticians/folder.base views/views/bv_vault_teammate_provider_dietician.vql
+/databases/denodotest/folder.com/folder.davita/folder.vault/folder.dieticians/folder.derived views/views/dv_vault_dietician.vql
+/databases/denodotest/folder.com/folder.davita/folder.es/es.vql
+/databases/denodotest/folder.com/folder.davita/folder.es/folder.terminology/terminology.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.flatfiles/flatfiles.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.flatfiles/datasources/df/ds_ts_src_oid.vql
+/databases/denodotest/folder.com/folder.davita/folder.es/folder.terminology/views/bv_ts_src_oid.vql
+/databases/denodotest/folder.com/folder.davita/folder.es/folder.terminology/views/dv_ts_final_src_oid.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.rest/rest.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.rest/datasources/json/ds_terminology_service_test.vql
+/databases/denodotest/folder.com/folder.davita/folder.shared/folder.sources/folder.rest/views/bv_terminology_service_getlist.vql
+/databases/denodotest/folder.com/folder.davita/folder.es/folder.terminology/views/dv_ts_final_map_oid_ts_list.vql
+/databases/denodotest/folder.com/folder.davita/folder.es/folder.terminology/views/dv_terminology_service_getlist_src.vql

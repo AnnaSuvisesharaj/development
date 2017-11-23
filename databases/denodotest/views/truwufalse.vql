@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW truwufalse AS SELECT id, first_name, middle_name, last_name FROM (SELECT * FROM bv_false UNION SELECT middle_name, id, last_name AS first_name, first_name AS last_name FROM dv_true) CONTEXT ('I18N' = 'us_cst_cdt');
+
+ALTER VIEW truwufalse
+ LAYOUT (bv_false = [20, 20, 200, 106], dv_true = [460, 40, 200, 106]);
+

@@ -1,0 +1,211 @@
+﻿CREATE OR REPLACE WRAPPER JSON bv_googleapi
+    DATASOURCENAME=ds_googleapi
+    TUPLEROOT '/JSONFile'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        file_id = 'FILE_ID' : 'java.lang.String' (OBL) (DEFAULTVALUE='1lQXAvYw1BhuZllKEKhI6XEnK__w3mQYkXirns-PHkIA') EXTERN,
+        kind = 'kind' : 'java.lang.String',
+        id = 'id' : 'java.lang.String',
+        name = 'name' : 'java.lang.String',
+        mimetype = 'mimeType' : 'java.lang.String',
+        starred = 'starred' : 'java.lang.String',
+        trashed = 'trashed' : 'java.lang.String',
+        explicitlytrashed = 'explicitlyTrashed' : 'java.lang.String',
+        parents = 'parents' : ARRAY OF (
+            parents = 'parents' : REGISTER OF (
+                field_0 = 'field_0' : 'java.lang.String'
+            )
+        ),
+        spaces = 'spaces' : ARRAY OF (
+            spaces = 'spaces' : REGISTER OF (
+                field_0 = 'field_0' : 'java.lang.String'
+            )
+        ),
+        version = 'version' : 'java.lang.String',
+        webviewlink = 'webViewLink' : 'java.lang.String',
+        iconlink = 'iconLink' : 'java.lang.String',
+        thumbnaillink = 'thumbnailLink' : 'java.lang.String',
+        viewedbyme = 'viewedByMe' : 'java.lang.String',
+        createdtime = 'createdTime' : 'java.lang.String',
+        modifiedtime = 'modifiedTime' : 'java.lang.String',
+        owners = 'owners' : ARRAY OF (
+            owners = 'owners' : REGISTER OF (
+                kind = 'kind' : 'java.lang.String',
+                displayname = 'displayName' : 'java.lang.String',
+                me = 'me' : 'java.lang.String',
+                permissionid = 'permissionId' : 'java.lang.String',
+                emailaddress = 'emailAddress' : 'java.lang.String'
+            )
+        ),
+        lastmodifyinguser = 'lastModifyingUser' : REGISTER OF (
+            kind = 'kind' : 'java.lang.String',
+            displayname = 'displayName' : 'java.lang.String',
+            photolink = 'photoLink' : 'java.lang.String',
+            me = 'me' : 'java.lang.String',
+            permissionid = 'permissionId' : 'java.lang.String',
+            emailaddress = 'emailAddress' : 'java.lang.String'
+        ),
+        shared = 'shared' : 'java.lang.String',
+        ownedbyme = 'ownedByMe' : 'java.lang.String',
+        capabilities = 'capabilities' : REGISTER OF (
+            canaddchildren = 'canAddChildren' : 'java.lang.String',
+            canchangeviewerscancopycontent = 'canChangeViewersCanCopyContent' : 'java.lang.String',
+            cancomment = 'canComment' : 'java.lang.String',
+            cancopy = 'canCopy' : 'java.lang.String',
+            candelete = 'canDelete' : 'java.lang.String',
+            candownload = 'canDownload' : 'java.lang.String',
+            canedit = 'canEdit' : 'java.lang.String',
+            canlistchildren = 'canListChildren' : 'java.lang.String',
+            canmoveitemintoteamdrive = 'canMoveItemIntoTeamDrive' : 'java.lang.String',
+            canreadrevisions = 'canReadRevisions' : 'java.lang.String',
+            canremovechildren = 'canRemoveChildren' : 'java.lang.String',
+            canrename = 'canRename' : 'java.lang.String',
+            canshare = 'canShare' : 'java.lang.String',
+            cantrash = 'canTrash' : 'java.lang.String',
+            canuntrash = 'canUntrash' : 'java.lang.String'
+        ),
+        viewerscancopycontent = 'viewersCanCopyContent' : 'java.lang.String',
+        writerscanshare = 'writersCanShare' : 'java.lang.String',
+        permissions = 'permissions' : ARRAY OF (
+            permissions = 'permissions' : REGISTER OF (
+                kind = 'kind' : 'java.lang.String',
+                id = 'id' : 'java.lang.String',
+                type = 'type' : 'java.lang.String',
+                emailaddress = 'emailAddress' : 'java.lang.String',
+                role = 'role' : 'java.lang.String',
+                displayname = 'displayName' : 'java.lang.String',
+                deleted = 'deleted' : 'java.lang.String',
+                photolink = 'photoLink' : 'java.lang.String',
+                domain = 'domain' : 'java.lang.String',
+                allowfilediscovery = 'allowFileDiscovery' : 'java.lang.String'
+            )
+        ),
+        quotabytesused = 'quotaBytesUsed' : 'java.lang.String',
+        isappauthorized = 'isAppAuthorized' : 'java.lang.String'
+    )
+    );
+
+CREATE OR REPLACE TYPE ds_googleapi_parents_parents AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE ds_googleapi_parents AS ARRAY OF ds_googleapi_parents_parents;
+
+CREATE OR REPLACE TYPE ds_googleapi_owners_owners AS REGISTER OF (kind:text, displayname:text, me:text, permissionid:text, emailaddress:text);
+
+CREATE OR REPLACE TYPE ds_googleapi_owners AS ARRAY OF ds_googleapi_owners_owners;
+
+CREATE OR REPLACE TYPE ds_googleapi_lastmodifyinguser AS REGISTER OF (kind:text, displayname:text, photolink:text, me:text, permissionid:text, emailaddress:text);
+
+CREATE OR REPLACE TYPE ds_googleapi_capabilities AS REGISTER OF (canaddchildren:text, canchangeviewerscancopycontent:text, cancomment:text, cancopy:text, candelete:text, candownload:text, canedit:text, canlistchildren:text, canmoveitemintoteamdrive:text, canreadrevisions:text, canremovechildren:text, canrename:text, canshare:text, cantrash:text, canuntrash:text);
+
+CREATE OR REPLACE TYPE ds_googleapi_permissions_permissions AS REGISTER OF (kind:text, id:text, type:text, emailaddress:text, role:text, displayname:text, deleted:text, photolink:text, domain:text, allowfilediscovery:text);
+
+CREATE OR REPLACE TYPE ds_googleapi_permissions AS ARRAY OF ds_googleapi_permissions_permissions;
+
+CREATE OR REPLACE TABLE bv_googleapi I18N us_pst (
+        file_id:text (defaultvalue = '1lQXAvYw1BhuZllKEKhI6XEnK__w3mQYkXirns-PHkIA'), 
+        kind:text, 
+        id:text, 
+        name:text, 
+        mimetype:text, 
+        starred:text, 
+        trashed:text, 
+        explicitlytrashed:text, 
+        parents:ds_googleapi_parents, 
+        spaces:ds_googleapi_parents, 
+        version:text, 
+        webviewlink:text, 
+        iconlink:text, 
+        thumbnaillink:text, 
+        viewedbyme:text, 
+        createdtime:text, 
+        modifiedtime:text, 
+        owners:ds_googleapi_owners, 
+        lastmodifyinguser:ds_googleapi_lastmodifyinguser, 
+        shared:text, 
+        ownedbyme:text, 
+        capabilities:ds_googleapi_capabilities, 
+        viewerscancopycontent:text, 
+        writerscanshare:text, 
+        permissions:ds_googleapi_permissions, 
+        quotabytesused:text, 
+        isappauthorized:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_googleapi(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD file_id (=) OBL ONE
+             ADD kind NOS ZERO ()
+             ADD id NOS ZERO ()
+             ADD name NOS ZERO ()
+             ADD mimetype NOS ZERO ()
+             ADD starred NOS ZERO ()
+             ADD trashed NOS ZERO ()
+             ADD explicitlytrashed NOS ZERO ()
+             ADD parents NOS ZERO ()
+             ADD parents NOS ZERO ()
+             ADD parents.field_0 NOS ZERO ()
+             ADD spaces NOS ZERO ()
+             ADD spaces NOS ZERO ()
+             ADD spaces.field_0 NOS ZERO ()
+             ADD version NOS ZERO ()
+             ADD webviewlink NOS ZERO ()
+             ADD iconlink NOS ZERO ()
+             ADD thumbnaillink NOS ZERO ()
+             ADD viewedbyme NOS ZERO ()
+             ADD createdtime NOS ZERO ()
+             ADD modifiedtime NOS ZERO ()
+             ADD owners NOS ZERO ()
+             ADD owners NOS ZERO ()
+             ADD owners.kind NOS ZERO ()
+             ADD owners.displayname NOS ZERO ()
+             ADD owners.me NOS ZERO ()
+             ADD owners.permissionid NOS ZERO ()
+             ADD owners.emailaddress NOS ZERO ()
+             ADD lastmodifyinguser NOS ZERO ()
+             ADD lastmodifyinguser.kind NOS ZERO ()
+             ADD lastmodifyinguser.displayname NOS ZERO ()
+             ADD lastmodifyinguser.photolink NOS ZERO ()
+             ADD lastmodifyinguser.me NOS ZERO ()
+             ADD lastmodifyinguser.permissionid NOS ZERO ()
+             ADD lastmodifyinguser.emailaddress NOS ZERO ()
+             ADD shared NOS ZERO ()
+             ADD ownedbyme NOS ZERO ()
+             ADD capabilities NOS ZERO ()
+             ADD capabilities.canaddchildren NOS ZERO ()
+             ADD capabilities.canchangeviewerscancopycontent NOS ZERO ()
+             ADD capabilities.cancomment NOS ZERO ()
+             ADD capabilities.cancopy NOS ZERO ()
+             ADD capabilities.candelete NOS ZERO ()
+             ADD capabilities.candownload NOS ZERO ()
+             ADD capabilities.canedit NOS ZERO ()
+             ADD capabilities.canlistchildren NOS ZERO ()
+             ADD capabilities.canmoveitemintoteamdrive NOS ZERO ()
+             ADD capabilities.canreadrevisions NOS ZERO ()
+             ADD capabilities.canremovechildren NOS ZERO ()
+             ADD capabilities.canrename NOS ZERO ()
+             ADD capabilities.canshare NOS ZERO ()
+             ADD capabilities.cantrash NOS ZERO ()
+             ADD capabilities.canuntrash NOS ZERO ()
+             ADD viewerscancopycontent NOS ZERO ()
+             ADD writerscanshare NOS ZERO ()
+             ADD permissions NOS ZERO ()
+             ADD permissions NOS ZERO ()
+             ADD permissions.kind NOS ZERO ()
+             ADD permissions.id NOS ZERO ()
+             ADD permissions.type NOS ZERO ()
+             ADD permissions.emailaddress NOS ZERO ()
+             ADD permissions.role NOS ZERO ()
+             ADD permissions.displayname NOS ZERO ()
+             ADD permissions.deleted NOS ZERO ()
+             ADD permissions.photolink NOS ZERO ()
+             ADD permissions.domain NOS ZERO ()
+             ADD permissions.allowfilediscovery NOS ZERO ()
+             ADD quotabytesused NOS ZERO ()
+             ADD isappauthorized NOS ZERO ()
+        )
+        OUTPUTLIST (capabilities, createdtime, explicitlytrashed, iconlink, id, isappauthorized, kind, lastmodifyinguser, mimetype, modifiedtime, name, ownedbyme, owners, parents, permissions, quotabytesused, shared, spaces, starred, thumbnaillink, trashed, version, viewedbyme, viewerscancopycontent, webviewlink, writerscanshare
+        )
+        WRAPPER (json bv_googleapi)
+    );
+

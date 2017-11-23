@@ -1,0 +1,52 @@
+﻿CREATE OR REPLACE WRAPPER JSON bv_sheets1
+    DATASOURCENAME=ds_sheets
+    TUPLEROOT '/JSONFile'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        spreadsheet = 'SPREADSHEET' : 'java.lang.String' (OBL) (DEFAULTVALUE='1f54vbc3iQSZGEBzEMYg9P2nMCeUKt4jGLejaOmUAEH0') EXTERN,
+        range = 'range' : 'java.lang.String',
+        majordimension = 'majorDimension' : 'java.lang.String',
+        values = 'values' : ARRAY OF (
+            values = 'values' : REGISTER OF (
+                values = 'values' : ARRAY OF (
+                    values = 'values' : REGISTER OF (
+                        field_0 = 'field_0' : 'java.lang.String'
+                    )
+                )
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE ds_sheets_values_values_values_values AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE ds_sheets_values_values_values AS ARRAY OF ds_sheets_values_values_values_values;
+
+CREATE OR REPLACE TYPE ds_sheets_values_values AS REGISTER OF (values:ds_sheets_values_values_values);
+
+CREATE OR REPLACE TYPE ds_sheets_values AS ARRAY OF ds_sheets_values_values;
+
+CREATE OR REPLACE TABLE bv_sheets1 I18N us_pst (
+        spreadsheet:text (defaultvalue = '1f54vbc3iQSZGEBzEMYg9P2nMCeUKt4jGLejaOmUAEH0'), 
+        range:text, 
+        majordimension:text, 
+        values:ds_sheets_values
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_sheets1(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD spreadsheet (=) OBL ONE
+             ADD range NOS ZERO ()
+             ADD majordimension NOS ZERO ()
+             ADD values NOS ZERO ()
+             ADD values NOS ZERO ()
+             ADD values.values NOS ZERO ()
+             ADD values.values NOS ZERO ()
+             ADD values.values.field_0 NOS ZERO ()
+        )
+        OUTPUTLIST (majordimension, range, values
+        )
+        WRAPPER (json bv_sheets1)
+    );
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_ts_final_src_oid FOLDER = '/com/davita/es/terminology' AS SELECT DISTINCT (((('"'||bv_ts_src_oid.oid_typ)||'": "')||bv_ts_src_oid.oid_val)||'"') AS final_oid, bv_ts_src_oid.sno AS sno, bv_ts_src_oid.oid_typ AS oid_typ, bv_ts_src_oid.oid_val AS oid_val, (('"ActiveBy":"'||formatdate('YYYY-MM-dd', current_date()))||'"') AS activeby FROM bv_ts_src_oid;
+
+ALTER VIEW dv_ts_final_src_oid
+ LAYOUT (bv_ts_src_oid = [20, 20, 200, 86]);
+

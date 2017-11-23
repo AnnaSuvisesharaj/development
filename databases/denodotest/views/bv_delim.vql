@@ -1,0 +1,33 @@
+﻿CREATE OR REPLACE WRAPPER DF bv_delim
+    DATASOURCENAME=ds_delim
+    OUTPUTSCHEMA (
+        path = 'path' (OBL) (DEFAULTVALUE='C:\Users\asuvisesharaj\Desktop\Softwares\Sales Data File-20170112T062838Z') EXTERN,
+        region_0 = '"Region"' (OPT),
+        product_0 = '"Product"' (OPT),
+        date_0 = '"Date"' (OPT),
+        sales_0 = '"Sales"' (OPT)
+    );
+
+CREATE OR REPLACE TABLE bv_delim I18N us_cst (
+        path:text (defaultvalue = 'C:\Users\asuvisesharaj\Desktop\Softwares\Sales Data File-20170112T062838Z'), 
+        region_0:text, 
+        product_0:text, 
+        date_0:text, 
+        sales_0:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_delim(
+        I18N us_cst
+        CONSTRAINTS (
+             ADD path (=) OBL ONE
+             ADD region_0 (=,in) OPT ANY
+             ADD product_0 (=,in) OPT ANY
+             ADD date_0 (=,in) OPT ANY
+             ADD sales_0 (=,in) OPT ANY
+        )
+        OUTPUTLIST (date_0, product_0, region_0, sales_0
+        )
+        WRAPPER (df bv_delim)
+    );
+

@@ -1,0 +1,18 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_sheets
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.URL}'
+    AUTHENTICATION OAUTH20 ( 
+      ACCESSTOKEN = '${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.ACCESSTOKEN}' ${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.ACCESSTOKEN.ENCRYPTED}
+      REQUESTSIGNINGMETHOD = ${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.REQUESTSIGNINGMETHOD}
+      TOKENENDPOINTURL = '${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.TOKENENDPOINTURL}'
+      CLIENTIDENTIFIER = '${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.CLIENTIDENTIFIER}'
+      CLIENTSECRET = '${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.CLIENTSECRET}' ${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.CLIENTSECRET.ENCRYPTED}
+      REFRESHTOKEN = '${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.REFRESHTOKEN}' ${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.REFRESHTOKEN.ENCRYPTED}
+      ACCESSTOKENEXPIRESIN = ${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.ACCESSTOKENEXPIRESIN}
+      AUTHORIZATIONSERVERURL = '${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.AUTHORIZATIONSERVERURL}'
+      REDIRECTIONENDPOINTURL = ${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.REDIRECTIONENDPOINTURL}
+      SCOPES = ${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.SCOPES}
+      SETSTATEPARAMETER = ${databases.denodotest.datasources.json.ds_sheets.ROUTE.HTTP.SETSTATEPARAMETER}
+    )
+    PROXY OFF;
+

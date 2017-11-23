@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW bv_xml_j_ds_xmldata AS SELECT ds_xmldata.file AS file, ds_xmldata.deleted AS deleted, ds_xmldata.casecomplete AS casecomplete, ds_xmldata.productselection AS productselection, ds_xmldata.status AS status, ds_xmldata.tbid AS tbid, ds_xmldata.journeycounter AS journeycounter, ds_xmldata.offerid AS offerid, ds_xmldata.validnotshown AS validnotshown, ds_xmldata.performedactivities AS performedactivities, ds_xmldata.executableactivities AS executableactivities FROM bv_xml AS bv_xml INNER JOIN ds_xmldata AS ds_xmldata ON bv_xml.properties = ds_xmldata.file  CONTEXT ('I18N' = 'us_cst');
+
+ALTER VIEW bv_xml_j_ds_xmldata
+ LAYOUT (bv_xml = [20, 20, 200, 66], ds_xmldata = [250, 20, 200, 225]);
+

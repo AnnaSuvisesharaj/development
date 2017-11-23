@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC employees_12000
+    DATASOURCENAME=ds_oracle
+    SCHEMANAME = '${databases.denodotest.views.jdbc.employees_12000.SCHEMANAME}'
+    RELATIONNAME='EMPLOYEES_12000' 
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypename='NUMBER', sourcetypeid='3')  NOT NULL SORTABLE,
+        first_name = 'FIRST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypesize='50')  NOT NULL SORTABLE,
+        last_name = 'LAST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypesize='50')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'EMPLOYEES_12000_PK' PRIMARY KEY ( 'ID' )
+    INDEX 'EMPLOYEES_12000_PK' CLUSTER UNIQUE PRIMARY ( 'ID' );
+
+CREATE OR REPLACE TABLE employees_12000 I18N us_cst (
+        id:decimal (sourcetyperadix = '10', sourcetypeid = '3'), 
+        first_name:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '12'), 
+        last_name:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    CONSTRAINT 'EMPLOYEES_12000_PK' PRIMARY KEY ( 'id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD employees_12000(
+        I18N us_cst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD first_name (any) OPT ANY
+             ADD last_name (any) OPT ANY
+        )
+        OUTPUTLIST (first_name, id, last_name
+        )
+        WRAPPER (jdbc employees_12000)
+    );
+

@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC cszislib_artstype
+    FOLDER = '/10 - fysieke laag'
+    DATASOURCENAME=hix
+    CATALOGNAME = '${databases.denodotest.folder.10 - fysieke laag.views.jdbc.cszislib_artstype.CATALOGNAME}'
+    SCHEMANAME = '${databases.denodotest.folder.10 - fysieke laag.views.jdbc.cszislib_artstype.SCHEMANAME}'
+    RELATIONNAME='CSZISLIB_ARTSTYPE' 
+    OUTPUTSCHEMA (
+        code = 'CODE' :'java.lang.String' (OPT) (sourcetyperadix='0', sourcetypename='nvarchar', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='1')  SORTABLE,
+        omschr = 'OMSCHR' :'java.lang.String' (OPT) (sourcetyperadix='0', sourcetypename='nvarchar', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='30')  SORTABLE,
+        vervallen = 'VERVALLEN' :'java.lang.Boolean' (OPT) (sourcetyperadix='0', sourcetypename='bit', sourcetypeid='-7', sourcetypedecimals='0', sourcetypesize='1')  NOT NULL SORTABLE
+    )
+    INDEX 'idx_CSZISLIB_ARTSTYPE_ARTSTYPC' OTHER UNIQUE ( 'CODE' );
+
+CREATE OR REPLACE TABLE cszislib_artstype I18N nl_euro_custom (
+        code:text (sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '1', sourcetypeid = '-9'), 
+        omschr:text (sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '30', sourcetypeid = '-9'), 
+        vervallen:boolean (sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '1', sourcetypeid = '-7')
+    )
+    FOLDER = '/10 - fysieke laag'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD cszislib_artstype(
+        I18N nl_euro_custom
+        CONSTRAINTS (
+             ADD code (any) OPT ANY
+             ADD omschr (any) OPT ANY
+             ADD vervallen (any) OPT ANY
+        )
+        OUTPUTLIST (code, omschr, vervallen
+        )
+        WRAPPER (jdbc cszislib_artstype)
+    )
+    SMART_ONLY;
+
